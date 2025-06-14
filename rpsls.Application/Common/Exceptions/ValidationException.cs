@@ -1,4 +1,4 @@
-namespace rpsls.Application.Exceptions;
+namespace rpsls.Application.Common.Exceptions;
 
 public class ValidationException(IReadOnlyCollection<ValidationError> errors) : Exception("Validation failed.")
 {

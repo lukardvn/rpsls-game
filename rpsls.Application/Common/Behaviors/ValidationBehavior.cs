@@ -1,10 +1,10 @@
 using FluentValidation;
 using MediatR;
-using rpsls.Application.Exceptions;
+using rpsls.Application.Common.Exceptions;
 using rpsls.Application.Messaging;
-using ValidationException = rpsls.Application.Exceptions.ValidationException;
+using ValidationException = rpsls.Application.Common.Exceptions.ValidationException;
 
-namespace rpsls.Application.Behaviors;
+namespace rpsls.Application.Common.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TResponse>
 {

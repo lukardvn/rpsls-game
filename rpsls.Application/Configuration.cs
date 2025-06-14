@@ -1,7 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using rpsls.Application.Behaviors;
+using rpsls.Application.Common.Behaviors;
 
 namespace rpsls.Application;
 

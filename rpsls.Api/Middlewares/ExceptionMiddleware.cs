@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using rpsls.Application.Exceptions;
+using rpsls.Application.Common.Exceptions;
 
 namespace rpsls.Api.Middlewares;
 
@@ -15,14 +15,6 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         {
             logger.LogError(ex, "Exception occurred: {Message}", ex.Message);
 
-            //todo: see exceptions
-            // var (statusCode, title) = ex switch
-            // {
-            //     InputException => (HttpStatusCode.BadRequest, "Invalid Input"),
-            //     ArgumentException => (HttpStatusCode.BadRequest, "Invalid Argument"),
-            //     _ => (HttpStatusCode.InternalServerError, "Unexpected Error")
-            // };
-            
             var exceptionDetails = GetExceptionDetails(ex);
             
             var problem = new ProblemDetails
@@ -35,9 +27,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             };
 
             if (exceptionDetails.Errors is not null)
-            {
                 problem.Extensions["errors"] = exceptionDetails.Errors;
-            }
             
             context.Response.StatusCode = problem.Status.Value;
 

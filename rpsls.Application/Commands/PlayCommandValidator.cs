@@ -1,7 +1,7 @@
 using FluentValidation;
 using rpsls.Domain.Models;
 
-namespace rpsls.Application;
+namespace rpsls.Application.Commands;
 
 public class PlayCommandValidator : AbstractValidator<PlayCommand>
 {
