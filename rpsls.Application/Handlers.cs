@@ -1,10 +1,11 @@
 using MediatR;
 using rpsls.Application.DTOs;
+using rpsls.Application.Exceptions;
 using rpsls.Application.Interfaces;
 using rpsls.Domain.Interfaces;
 using rpsls.Domain.Models;
 
-namespace rpsls.Application.Queries;
+namespace rpsls.Application;
 
 public class GetChoicesQueryHandler : IRequestHandler<GetChoicesQuery, IEnumerable<ChoiceDto>>
 {
@@ -13,7 +14,7 @@ public class GetChoicesQueryHandler : IRequestHandler<GetChoicesQuery, IEnumerab
         var choices = Enum.GetValues<Choice>()
             .Select(c => new ChoiceDto((int)c, c.ToString()));
 
-        return Task.FromResult<IEnumerable<ChoiceDto>>(choices);
+        return Task.FromResult(choices);
     }
 }
 
@@ -25,5 +26,25 @@ public class GetRandomChoiceQueryHandler(IGameService gameService, IRandomNumber
         var choice = await gameService.MapNumberToChoice(randomNumber);
         
         return new ChoiceDto((int)choice, choice.ToString());
+    }
+}
+
+public class PlayCommandHandler(IGameService gameService, IRandomNumberProvider rnProvider)
+    : IRequestHandler<PlayCommand, GameResultDto>
+{
+    public async Task<GameResultDto> Handle(PlayCommand request, CancellationToken ct)
+    {
+        var playerChoice = (Choice)request.Player;
+
+        var computerNumber = await rnProvider.GetRandomNumber(ct);
+        var computerChoice = await gameService.MapNumberToChoice(computerNumber);
+
+        var result = await gameService.DetermineOutcome(playerChoice, computerChoice);
+
+        return new GameResultDto(
+            (int)playerChoice,
+            (int)computerChoice,
+            result
+        );
     }
 }

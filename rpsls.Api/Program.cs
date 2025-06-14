@@ -1,5 +1,6 @@
 using rpsls.Api;
 using rpsls.Api.Endpoints;
+using rpsls.Api.Middlewares;
 using rpsls.Application;
 using rpsls.Domain;
 using rpsls.Infrastructure;
@@ -12,6 +13,8 @@ builder.Services.RegisterDomainServices();
 builder.Services.RegisterInfrastructureServices();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

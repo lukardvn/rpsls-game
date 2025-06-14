@@ -11,5 +11,4 @@
         <!-- in application layer, this is implicitly included by MediatR -->
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     </ItemGroup>
-
 </Project>

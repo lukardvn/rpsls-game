@@ -1,7 +1,7 @@
 using MediatR;
-using rpsls.Application.Commands;
+using rpsls.Api.DTOs;
+using rpsls.Application;
 using rpsls.Application.DTOs;
-using rpsls.Application.Queries;
 
 namespace rpsls.Api.Endpoints;
 
@@ -31,15 +31,17 @@ public static class GameEndpoints
         .WithTags("Game")
         .Produces<ChoiceDto>();
         
-        group.MapPost("/play", async (PlayGameCommand command, ISender mediator, CancellationToken ct) =>
+        group.MapPost("/play", async (PlayRequest request, ISender mediator, CancellationToken ct) =>
         {
-            var result = await mediator.Send(command, ct);
+            var result = await mediator.Send(new PlayCommand(request.Player), ct);
             return Results.Ok(result);
         })
         .WithDescription("Play a game round against the computer.")
         .WithName("PlayGame")
         .WithTags("Game")
-        .Accepts<PlayGameCommand>("application/json")
+        .Accepts<PlayRequest>("application/json")
         .Produces<GameResultDto>();
+        
+        group.MapGet("/boom", new Func<object>(() => throw new Exception("Simulated failure")));
     }
 }

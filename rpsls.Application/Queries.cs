@@ -1,7 +1,7 @@
 using MediatR;
 using rpsls.Application.DTOs;
 
-namespace rpsls.Application.Queries;
+namespace rpsls.Application;
 
 public record GetChoicesQuery() : IRequest<IEnumerable<ChoiceDto>>;
 

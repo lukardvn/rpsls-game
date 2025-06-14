@@ -1,6 +1,6 @@
-using rpsls.Domain.Interfaces;
 using rpsls.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
+using rpsls.Domain.Interfaces;
 
 namespace rpsls.Domain;
 
