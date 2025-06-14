@@ -46,6 +46,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
                 "One or more validation errors occurred",
                 validationException.Errors
                 ),
+            
             _ => new ExceptionDetails(
                 StatusCodes.Status500InternalServerError, 
                 "InternalServerError",

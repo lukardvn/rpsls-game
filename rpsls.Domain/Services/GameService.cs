@@ -23,13 +23,13 @@ public class GameService : IGameService
         return Task.FromResult(choices[index]);
     }
 
-    public Task<string> DetermineOutcome(Choice player, Choice computer)
+    public Task<Outcome> DetermineOutcome(Choice player, Choice computer)
     {
         if (player == computer)
-            return Task.FromResult("Tie");
+            return Task.FromResult(Outcome.Tie);
 
         return Task.FromResult(_winningRules[player].Contains(computer) 
-            ? "Win" 
-            : "Lose");
+            ? Outcome.Win 
+            : Outcome.Lose);
     }
 }

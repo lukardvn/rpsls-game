@@ -22,10 +22,10 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
     {
         var context = new ValidationContext<TRequest>(request);
 
-        var errors = _validators.Select(validator => validator.Validate(context))
-            .Where(validationResult => !validationResult.IsValid)
-            .SelectMany(validationResult => validationResult.Errors)
-            .Select(validationFailure => new ValidationError(validationFailure.PropertyName, validationFailure.ErrorMessage))
+        var errors = _validators.Select(val => val.Validate(context))
+            .Where(valResult => !valResult.IsValid)
+            .SelectMany(valResult => valResult.Errors)
+            .Select(valError => new ValidationError(valError.PropertyName, valError.ErrorMessage))
             .ToList();
 
         if (errors.Any())

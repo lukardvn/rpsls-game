@@ -21,7 +21,7 @@ public class PlayCommandHandler(IGameService gameService, IRandomNumberProvider 
         return new ResultDto(
             (int)playerChoice,
             (int)computerChoice,
-            result
+            result.ToString()
         );
     }
 }
