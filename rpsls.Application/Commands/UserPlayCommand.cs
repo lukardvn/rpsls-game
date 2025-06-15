@@ -1,6 +1,6 @@
+using rpsls.Application.DTOs;
+using rpsls.Application.Messaging;
+
 namespace rpsls.Application.Commands;
 
-public class UserPlayCommand
-{
-    
-}
+public record UserPlayCommand(int Choice, string? Username) : ICommand<ResultDto>;

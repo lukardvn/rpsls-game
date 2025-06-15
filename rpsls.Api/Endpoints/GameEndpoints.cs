@@ -1,9 +1,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using rpsls.Api.DTOs;
-using rpsls.Api.Mappers;
+using rpsls.Api.Helpers;
 using rpsls.Application.DTOs;
 using rpsls.Application.Queries;
+using rpsls.Domain.Models;
 
 namespace rpsls.Api.Endpoints;
 
@@ -41,6 +42,29 @@ public static class GameEndpoints
         .Accepts<PlayRequest>("application/json")
         .Produces<ResultDto>()
         .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
+        .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError);
+        
+        group.MapPost("/user-play", async (UserPlayRequest request, ISender mediator, CancellationToken ct) =>
+        {
+            var result = await mediator.Send(request.ToPlayCommand(), ct);
+            return Results.Ok(result);
+        })
+        .WithDescription("Play a round against a computer opponent.")
+        .WithName("PlayUserGame")
+        .Accepts<UserPlayRequest>("application/json")
+        .Produces<ResultDto>()
+        .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
+        .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError);
+        
+        //TODO: set 10 results as default, but allow custom user input
+        group.MapGet("/scoreboard", async (ISender mediator, int count = 10, CancellationToken ct = default) =>
+        {
+            var result = await mediator.Send(new ScoreboardQuery(count), ct);
+            return Results.Ok(result);
+        })
+        .WithDescription("Get scoreboard of most recent results.")
+        .WithName("GetScoreboard")
+        .Produces<GameResult>()
         .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError);
     }
 }

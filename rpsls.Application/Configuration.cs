@@ -15,8 +15,6 @@ public static class Configuration
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
         
-        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-        //
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }
