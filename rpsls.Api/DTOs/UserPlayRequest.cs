@@ -1,6 +1,3 @@
 namespace rpsls.Api.DTOs;
 
-public class UserPlayRequest
-{
-    
-}
+public record UserPlayRequest(int Choice, string? Username);
