@@ -1,6 +1,6 @@
 namespace rpsls.Application.Interfaces;
 
-public class ITimeService
+public interface ITimeService
 {
-    
+    DateTime ConvertUtcToBelgradeTime(DateTime utcInput);
 }

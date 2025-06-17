@@ -11,5 +11,6 @@ public static class Configuration
     {
         services.AddHttpClient<IRandomNumberProvider, RandomNumberProvider>();
         services.AddScoped<IScoreboardRepository, ScoreboardRepository>();
+        services.AddScoped<ITimeService, TimeService>();
     }   
 }
