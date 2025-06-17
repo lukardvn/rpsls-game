@@ -1,3 +1,5 @@
+using rpsls.Domain.Models;
+
 namespace rpsls.Application.DTOs;
 
-public record ResultDto(int Player, int Computer, string Result); 
+public record ResultDto(Choice Player, Choice Computer, Outcome Result); 

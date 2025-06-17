@@ -2,9 +2,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using rpsls.Api.DTOs;
 using rpsls.Api.Helpers;
+using rpsls.Application.Commands;
 using rpsls.Application.DTOs;
 using rpsls.Application.Queries;
-using rpsls.Domain.Models;
 
 namespace rpsls.Api.Endpoints;
 
@@ -32,6 +32,7 @@ public static class GameEndpoints
         .WithName("GetRandomChoice")
         .Produces<ChoiceDto>();
         
+        //TODO: remove once /user-play is completed
         group.MapPost("/play", async (PlayRequest request, ISender mediator, CancellationToken ct) =>
         {
             var result = await mediator.Send(request.ToPlayCommand(), ct);
@@ -56,7 +57,6 @@ public static class GameEndpoints
         .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
         .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError);
         
-        //TODO: set 10 results as default, but allow custom user input
         group.MapGet("/scoreboard", async (ISender mediator, int count = 10, CancellationToken ct = default) =>
         {
             var result = await mediator.Send(new ScoreboardQuery(count), ct);
@@ -64,7 +64,17 @@ public static class GameEndpoints
         })
         .WithDescription("Get scoreboard of most recent results.")
         .WithName("GetScoreboard")
-        .Produces<GameResult>()
+        .Produces<IEnumerable<ResultDto>>()
+        .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError);
+        
+        group.MapPost("/scoreboard/reset", async (IMediator mediator) =>
+        {
+            await mediator.Send(new ResetScoreboardCommand());
+            return Results.Ok("Scoreboard reset successfully.");
+        })
+        .WithDescription("Reset scoreboard.")
+        .WithName("ResetScoreboard")
+        .Produces(StatusCodes.Status200OK)
         .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError);
     }
 }

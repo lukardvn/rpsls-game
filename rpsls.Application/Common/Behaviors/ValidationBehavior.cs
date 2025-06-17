@@ -1,7 +1,7 @@
 using FluentValidation;
 using MediatR;
 using rpsls.Application.Common.Exceptions;
-using rpsls.Application.Messaging;
+using rpsls.Application.Common.Messaging;
 using ValidationException = rpsls.Application.Common.Exceptions.ValidationException;
 
 namespace rpsls.Application.Common.Behaviors;

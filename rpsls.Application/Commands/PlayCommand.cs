@@ -1,5 +1,5 @@
+using rpsls.Application.Common.Messaging;
 using rpsls.Application.DTOs;
-using rpsls.Application.Messaging;
 
 namespace rpsls.Application.Commands;
 

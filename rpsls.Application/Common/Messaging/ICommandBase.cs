@@ -1,15 +1,16 @@
 using MediatR;
 
-namespace rpsls.Application.Messaging;
+namespace rpsls.Application.Common.Messaging;
 
-// public interface ICommandBase
-// {
-// }
+//TODO: do I need?
+public interface ICommandBase
+{
+}
 
 public interface ICommand<out TResponse> : IRequest<TResponse>//, ICommandBase
 {
 }
 
-// public interface ICommand : IRequest//, ICommandBase
-// {
-// }
+public interface ICommand : IRequest//, ICommandBase
+{
+}

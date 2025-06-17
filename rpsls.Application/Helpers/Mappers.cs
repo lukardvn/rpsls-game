@@ -1,9 +1,9 @@
 using rpsls.Application.DTOs;
 using rpsls.Domain.Models;
 
-namespace rpsls.Application.Extensions;
+namespace rpsls.Application.Helpers;
 
-public static class MappingExtensions
+public static class Mappers
 {
     public static ResultDto ToResultDto(this GameResult result)
     {
