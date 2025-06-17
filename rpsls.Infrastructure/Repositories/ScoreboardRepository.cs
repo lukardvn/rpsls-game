@@ -17,7 +17,7 @@ public class ScoreboardRepository(ApplicationDbContext dbContext) : IScoreboardR
             Outcome = outcome,
             PlayedAt = DateTime.UtcNow
         };
-
+        
         dbContext.Results.Add(result);
         await dbContext.SaveChangesAsync(ct);
     }

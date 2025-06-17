@@ -64,7 +64,7 @@ public static class GameEndpoints
         })
         .WithDescription("Get scoreboard of most recent results.")
         .WithName("GetScoreboard")
-        .Produces<IEnumerable<ResultDto>>()
+        .Produces<IEnumerable<ResultWithTimeDto>>()
         .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError);
         
         group.MapPost("/scoreboard/reset", async (IMediator mediator) =>

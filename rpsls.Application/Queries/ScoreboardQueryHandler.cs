@@ -5,13 +5,13 @@ using rpsls.Application.Interfaces;
 
 namespace rpsls.Application.Queries;
 
-public class ScoreboardQueryHandler(IScoreboardRepository scoreboardRepo)
-    : IRequestHandler<ScoreboardQuery, IEnumerable<ResultDto>>
+public class ScoreboardQueryHandler(IScoreboardRepository scoreboardRepo, ITimeService timeService)
+    : IRequestHandler<ScoreboardQuery, IEnumerable<ResultWithTimeDto>>
 {
-    public async Task<IEnumerable<ResultDto>> Handle(ScoreboardQuery request, CancellationToken ct)
+    public async Task<IEnumerable<ResultWithTimeDto>> Handle(ScoreboardQuery request, CancellationToken ct)
     {
         var dbResults=  await scoreboardRepo.GetRecentResults(request.Count, ct);
-
-        return dbResults.Select(r => r.ToResultDto());
+        
+        return dbResults.Select(r => r.ToResultWithTimeDto(timeService));
     }
 }
