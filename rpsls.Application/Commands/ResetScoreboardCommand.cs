@@ -1,6 +1,5 @@
+using rpsls.Application.Common.Messaging;
+
 namespace rpsls.Application.Commands;
 
-public class ResetScoreboardCommand
-{
-    
-}
+public record ResetScoreboardCommand : ICommand;

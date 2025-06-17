@@ -1,6 +1,6 @@
 using MediatR;
-using rpsls.Domain.Models;
+using rpsls.Application.DTOs;
 
 namespace rpsls.Application.Queries;
 
-public record ScoreboardQuery(int Count = 10) : IRequest<IEnumerable<GameResult>>;
+public record ScoreboardQuery(int Count = 10) : IRequest<IEnumerable<ResultDto>>;

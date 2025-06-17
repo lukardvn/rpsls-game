@@ -19,9 +19,9 @@ public class PlayCommandHandler(IGameService gameService, IRandomNumberProvider 
         var result = await gameService.DetermineOutcome(playerChoice, computerChoice);
 
         return new ResultDto(
-            (int)playerChoice,
-            (int)computerChoice,
-            result.ToString()
+            playerChoice,
+            computerChoice,
+            result
         );
     }
 }

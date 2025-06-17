@@ -22,9 +22,9 @@ public class UserPlayCommandHandler(IGameService gameService, IRandomNumberProvi
             await scoreboardRepo.AddResult(request.Username, playerChoice, computerChoice, outcome, ct);
 
         return new ResultDto(
-            (int)playerChoice,
-            (int)computerChoice,
-            outcome.ToString()
+            playerChoice,
+            computerChoice,
+            outcome
         );
     }
 }

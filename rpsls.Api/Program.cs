@@ -7,7 +7,7 @@ using rpsls.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.RegisterApiServices();
+builder.Services.RegisterApiServices(builder.Configuration);
 builder.Services.RegisterApplicationServices();
 builder.Services.RegisterDomainServices();
 builder.Services.RegisterInfrastructureServices();

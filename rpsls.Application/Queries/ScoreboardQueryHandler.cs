@@ -1,14 +1,17 @@
 using MediatR;
+using rpsls.Application.DTOs;
+using rpsls.Application.Helpers;
 using rpsls.Application.Interfaces;
-using rpsls.Domain.Models;
 
 namespace rpsls.Application.Queries;
 
-public class ScoreboardQueryHandler(IScoreboardRepository scoreboardRepository)
-    : IRequestHandler<ScoreboardQuery, IEnumerable<GameResult>>
+public class ScoreboardQueryHandler(IScoreboardRepository scoreboardRepo)
+    : IRequestHandler<ScoreboardQuery, IEnumerable<ResultDto>>
 {
-    public async Task<IEnumerable<GameResult>> Handle(ScoreboardQuery request, CancellationToken ct)
+    public async Task<IEnumerable<ResultDto>> Handle(ScoreboardQuery request, CancellationToken ct)
     {
-        return await scoreboardRepository.GetRecentResults(request.Count, ct);
+        var dbResults=  await scoreboardRepo.GetRecentResults(request.Count, ct);
+
+        return dbResults.Select(r => r.ToResultDto());
     }
 }

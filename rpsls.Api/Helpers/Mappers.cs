@@ -3,6 +3,10 @@ using rpsls.Application.Commands;
 
 namespace rpsls.Api.Helpers;
 
+/// <summary>
+/// Probably no need for these.
+/// Just wanted to showcase if objects were more complex and some actual mapping from Request/Response to Command was needed.
+/// </summary>
 public static class Mappers
 {
     public static PlayCommand ToPlayCommand(this PlayRequest request) =>
